@@ -5,10 +5,10 @@
    <p v-if="error != ''" 
    className="text-error">{{ error }}</p>
    <p v-if="result != 0 " className="text-result" >{{ result }}</p>
-   <Favourite :favs="favs" v-if="favs.length > 0 " />
+   <Favourite :favs="favs" v-if="favs.length > 0 " :getFromFavs="getFromFavs"/>
    <div className="selectors">
-      <Selector :setCrypto="setCryptoFirts" />
-      <Selector :setCrypto="setCryptoSecond" />
+      <Selector :setCrypto="setCryptoFirts" :cryptoNow="cryptoFirst"/>
+      <Selector :setCrypto="setCryptoSecond" :cryptoNow="cryptoSecond"/> 
    </div>
 </template>
 
@@ -16,7 +16,7 @@
 import Input from './components/Input.vue';
 import Selector from './components/Selector.vue';
 import Favourite from './components/Favourite.vue';
-import CryptoConvert from 'crypto-convert';
+import CryptoConvertx from 'crypto-convert';
 
 
 const convert = new CryptoConvert();
@@ -41,7 +41,8 @@ export default {
          });
       },
       getFromFavs(index) {
-         
+         this.cryptoFirst = this.favs[index].from
+         this.cryptoSecond = this.favs[index].to
       },
       changeAmount(val) {
          this.amount = val
